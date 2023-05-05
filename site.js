@@ -1,6 +1,5 @@
-const displays = document.querySelectorAll('.calculator-display > div');
-const previousDisplay = displays[0];
-const actualDisplay = displays[1];
+const previousDisplay = document.querySelector('[data-display-previous');
+const actualDisplay = document.querySelector('[data-display-actual');
 let operation = null;
 let storedNumber = 0;
 
@@ -16,7 +15,7 @@ function updatePreviousDisplay(sign){
     previousDisplay.textContent = Math.round(storedNumber*100)/100 + sign; 
 }
 
-const numberButtons = document.querySelectorAll('.button-number');
+const numberButtons = document.querySelectorAll('[data-number]');
 numberButtons.forEach(btn => btn.addEventListener('click',e => enterNumber(e)))
 
 function enterNumber(e) {
@@ -29,7 +28,7 @@ function enterNumber(e) {
     newLine = false;
 }
 
-const clearButton = document.querySelector('.button-clear');
+const clearButton = document.querySelector('[data-clear]');
 clearButton.addEventListener('click',clearDisplay)
 
 function clearDisplay() {
@@ -39,49 +38,49 @@ function clearDisplay() {
     storedNumber = 0;
 }
 
-const deleteButton = document.querySelector('.button-delete');
+const deleteButton = document.querySelector('[data-delete]');
 deleteButton.addEventListener('click',deleteLastDigit)
 function deleteLastDigit() {
     actualDisplay.textContent = actualDisplay.textContent.slice(0,actualDisplay.textContent.length-1)
     if (actualDisplay.textContent.length === 0) clearActualDisplay();
 }
 
-const divideButton = document.querySelector('.button-divide')
+const divideButton = document.querySelector('[data-divide]')
 divideButton.addEventListener('click', divideOperation)
 function divideOperation(){
     operate('÷');
     operation = divide;
 }
 
-const multiplyButton = document.querySelector('.button-multiply')
+const multiplyButton = document.querySelector('[data-multiply]')
 multiplyButton.addEventListener('click', multiplyOperation)
 function multiplyOperation(){
     operate('*');
     operation = multiply;
 }
 
-const minusButton = document.querySelector('.button-minus')
+const minusButton = document.querySelector('[data-minus]')
 minusButton.addEventListener('click', substractOperation)
 function substractOperation(){
     operate('-');
     operation = substract;
 }
 
-const plusButton = document.querySelector('.button-plus')
+const plusButton = document.querySelector('[data-plus]')
 plusButton.addEventListener('click', addOperation)
 function addOperation(){
     operate('+');
     operation = sum;
 }
 
-const pointButton = document.querySelector('.button-point');
+const pointButton = document.querySelector('[data-point]');
 pointButton.addEventListener('click', makeFloat)
 function makeFloat(){
     actualDisplay.textContent += '.';
     newLine = false;
 }
 
-const equalButton = document.querySelector('.button-equal');
+const equalButton = document.querySelector('[data-equal]');
 equalButton.addEventListener('click', resultOperation)
 function resultOperation(){
     operate('');
