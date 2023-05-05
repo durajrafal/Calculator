@@ -1,3 +1,7 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
 body {
     background-color: whitesmoke;
 }
@@ -6,53 +10,51 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
 .calculator {
     background-color: lightgrey;
-    margin-top: 50px;
 }
 
-.calculator, .calculator-display, .button {
+.calculator, .calculator-display {
     border-radius: 20px;
     border: 2px black solid;
 }
 
 .calculator-grid {
-    height: 75vh;
-    width: 60vh;
     margin: 20px;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 2fr repeat(5,1fr);
-    row-gap: 2em;
-    column-gap: 1em;
+    grid-template-columns: repeat(4,100px);
+    grid-template-rows: minmax(100px,auto) repeat(5,60px);
+    row-gap: 0.5em;
+    column-gap: 0.5em;
 }
 
 .calculator-display{
     background-color: darkslategrey;
-    grid-column-start: 1;
-    grid-column-end: 5;
+    grid-column: 1 / -1;
     margin: 10px;
     padding: 10px 20px;
-
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
 }
 
-.calculator-display-text {
-    height: auto;
+.calculator-display > div {
     font-size: 4em;
     word-wrap: break-word;
     word-break: break-all;
-    text-align: right;
     color: rgb(178, 218, 216);
 }
 
-.calculator-display-previous-text {
+.calculator-display > div:first-child {
     font-size: 2em;
     min-height: 1.2em;
 }
 
-.button {
+.calculator-grid > button {
     background-color: darkgray;
     border-radius: 5px;
     display: flex;
@@ -62,7 +64,11 @@ body {
     font-weight: 700;
 }
 
-.button:hover {
+.calculator-grid > button:hover {
     background-color: #888;
     cursor: pointer;
+}
+
+.span-two{
+    grid-column: span 2;
 }

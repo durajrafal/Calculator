@@ -1,4 +1,4 @@
-const displays = document.querySelectorAll('.calculator-display-text');
+const displays = document.querySelectorAll('.calculator-display > div');
 const previousDisplay = displays[0];
 const actualDisplay = displays[1];
 let operation = null;
@@ -49,7 +49,7 @@ function deleteLastDigit() {
 const divideButton = document.querySelector('.button-divide')
 divideButton.addEventListener('click', divideOperation)
 function divideOperation(){
-    operate('/');
+    operate('÷');
     operation = divide;
 }
 
