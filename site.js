@@ -1,123 +1,33 @@
-const previousDisplay = document.querySelector('[data-display-previous');
+import Calculator from "./calculator.js";
+
+const previousDisplay = document.querySelector('[data-display-previous]');
 const actualDisplay = document.querySelector('[data-display-actual');
-let operation = null;
-let storedNumber = 0;
 
-previousDisplay.textContent ='';
-clearActualDisplay();
-
-function clearActualDisplay(){
-    actualDisplay.textContent = 0;
-    newLine = true;
-}
-
-function updatePreviousDisplay(sign){
-    previousDisplay.textContent = Math.round(storedNumber*100)/100 + sign; 
-}
+const calc = new Calculator(actualDisplay, previousDisplay);
 
 const numberButtons = document.querySelectorAll('[data-number]');
-numberButtons.forEach(btn => btn.addEventListener('click',e => enterNumber(e)))
-
-function enterNumber(e) {
-    if((actualDisplay.textContent === '0' && newLine === false)) newLine = true;
-    
-    if(newLine)
-    actualDisplay.textContent = '';
-
-    actualDisplay.textContent += e.target.textContent;
-    newLine = false;
-}
+numberButtons.forEach(btn => btn.addEventListener('click',e => calc.enterNumber(e)))
 
 const clearButton = document.querySelector('[data-clear]');
-clearButton.addEventListener('click',clearDisplay)
-
-function clearDisplay() {
-    previousDisplay.textContent = '';
-    clearActualDisplay();
-    operation = null;
-    storedNumber = 0;
-}
+clearButton.addEventListener('click',() => calc.clearDisplay())
 
 const deleteButton = document.querySelector('[data-delete]');
-deleteButton.addEventListener('click',deleteLastDigit)
-function deleteLastDigit() {
-    actualDisplay.textContent = actualDisplay.textContent.slice(0,actualDisplay.textContent.length-1)
-    if (actualDisplay.textContent.length === 0) clearActualDisplay();
-}
+deleteButton.addEventListener('click',() => calc.deleteLastDigit())
 
 const divideButton = document.querySelector('[data-divide]')
-divideButton.addEventListener('click', divideOperation)
-function divideOperation(){
-    operate('÷');
-    operation = divide;
-}
+divideButton.addEventListener('click',() =>  calc.divideOperation())
 
 const multiplyButton = document.querySelector('[data-multiply]')
-multiplyButton.addEventListener('click', multiplyOperation)
-function multiplyOperation(){
-    operate('*');
-    operation = multiply;
-}
+multiplyButton.addEventListener('click',() =>  calc.multiplyOperation())
 
 const minusButton = document.querySelector('[data-minus]')
-minusButton.addEventListener('click', substractOperation)
-function substractOperation(){
-    operate('-');
-    operation = substract;
-}
+minusButton.addEventListener('click',() =>  calc.substractOperation())
 
 const plusButton = document.querySelector('[data-plus]')
-plusButton.addEventListener('click', addOperation)
-function addOperation(){
-    operate('+');
-    operation = sum;
-}
+plusButton.addEventListener('click',() =>  calc.addOperation())
 
 const pointButton = document.querySelector('[data-point]');
-pointButton.addEventListener('click', makeFloat)
-function makeFloat(){
-    actualDisplay.textContent += '.';
-    newLine = false;
-}
+pointButton.addEventListener('click',() =>  calc.makeFloat())
 
 const equalButton = document.querySelector('[data-equal]');
-equalButton.addEventListener('click', resultOperation)
-function resultOperation(){
-    operate('');
-    operation = null;
-}
-
-function operate(sign){
-    if(storedNumber === 0 && operation === null) {
-        storedNumber = getNumberFromDisplay();
-    }
-    else if(operation !== null) {
-        operation()
-    }
-    updatePreviousDisplay(sign);
-    clearActualDisplay();
-}
-
-function divide(){
-    const enteredNumber = getNumberFromDisplay();
-    if(enteredNumber !== 0)
-    storedNumber /= enteredNumber;
-    else
-    alert("Dividing by 0 is forbidden!");
-}
-
-function multiply(){
-    storedNumber *= getNumberFromDisplay();
-}
-
-function substract(){
-    storedNumber -= getNumberFromDisplay();
-}
-
-function sum(){
-    storedNumber += getNumberFromDisplay();
-}
-
-function getNumberFromDisplay() {
-    return parseFloat(actualDisplay.textContent);
-}
+equalButton.addEventListener('click',() =>  calc.resultOperation())
