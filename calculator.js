@@ -49,7 +49,6 @@ class Calculator{
         this.updatePreviousDisplay(sign);
         this.clearActualDisplay();
     }
-
       
     getNumberFromDisplay() {
         return parseFloat(this.actualDisplay.textContent);
@@ -74,13 +73,8 @@ class Calculator{
     sum(){
         this.storedNumber += this.getNumberFromDisplay();
     }
-    
-    sram(){
-        console.log('sram')
-    }
 
     divideOperation(){
-        this.sram();
         this.operate('÷');
         this.operation = this.divide;
     }
@@ -106,8 +100,11 @@ class Calculator{
     }
 
     makeFloat(){
-        this.actualDisplay.textContent += '.';
-        this.newLine = false;
+        if(!this.actualDisplay.textContent.includes('.'))
+        {
+            this.actualDisplay.textContent += '.';
+            this.newLine = false;
+        }
     }
    
 }
